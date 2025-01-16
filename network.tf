@@ -31,8 +31,16 @@ resource "google_compute_subnetwork" "subnetwork" {
   project       = module.project-services.project_id
 }
 
+data "google_compute_address" "existing" {
+  name   = "psc-compute-address"
+  region = var.region
+  project = module.project-services.project_id
+}
+
 # # Configure IP
+
 resource "google_compute_address" "default" {
+  count        = length(data.google_compute_address.existing.*.self_link) == 0 ? 1 : 0
   project      = module.project-services.project_id
   name         = "psc-compute-address"
   region       = var.region
