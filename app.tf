@@ -154,7 +154,7 @@ resource "google_cloud_run_service_iam_member" "noauth_frontend" {
   project  = google_cloud_run_v2_service.frontend_service.project
   service  = google_cloud_run_v2_service.frontend_service.name
   role     = "roles/run.invoker"
-  member   = "allUsers"
+  member   = "allAuthenticatedUsers"  #"allUsers"
 }
 
 
